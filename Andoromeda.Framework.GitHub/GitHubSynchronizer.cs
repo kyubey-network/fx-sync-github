@@ -75,7 +75,7 @@ namespace Andoromeda.Framework.GitHub
 
         private static void ExtractAll(Stream stream, string dest)
         {
-            if (!dest.EndsWith('/')) 
+            if (!dest.EndsWith("/")) 
             {
                 dest += '/';
             }
