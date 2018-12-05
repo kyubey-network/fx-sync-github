@@ -49,9 +49,16 @@ namespace Andoromeda.Framework.GitHub
             if (Directory.Exists(dst))
             {
                 Directory.Move(dst, dst + $"-{stamp}-bak");
-                Directory.Move(dst + '-' + stamp, dst);
+            }
+
+            Directory.Move(dst + '-' + stamp, dst);
+
+            try
+            {
                 Directory.Delete(dst + $"-{stamp}-bak", true);
             }
+            catch (DirectoryNotFoundException)
+            { }
         }
 
         private static async Task DownloadRepositoryZipAsync(string user, string repo, string branch, string dst)
