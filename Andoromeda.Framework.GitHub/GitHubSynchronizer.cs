@@ -49,12 +49,7 @@ namespace Andoromeda.Framework.GitHub
             if (Directory.Exists(dst))
             {
                 Directory.Move(dst, dst + $"-{stamp}-bak");
-            }
-
-            Directory.Move(dst + '-' + stamp, dst);
-
-            if (Directory.Exists(dst + $"-{stamp}-bak"))
-            {
+                Directory.Move(dst + '-' + stamp, dst);
                 Directory.Delete(dst + $"-{stamp}-bak", true);
             }
         }
@@ -66,9 +61,6 @@ namespace Andoromeda.Framework.GitHub
                 using (var stream = await response.Content.ReadAsStreamAsync())
                 {
                     ExtractAll(stream, dst);
-                    Directory.Move(Path.Combine(dst, $"{repo}-{branch}"), dst + "-bucket");
-                    Directory.Delete(dst);
-                    Directory.Move(dst + "-bucket", dst);
                 }
             }
         }
