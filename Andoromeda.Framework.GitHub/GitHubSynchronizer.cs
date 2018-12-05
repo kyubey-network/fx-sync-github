@@ -46,12 +46,7 @@ namespace Andoromeda.Framework.GitHub
             await DownloadRepositoryZipAsync(user, repo, branch, dst + '-' + stamp);
             File.WriteAllText(Path.Combine(dst + '-' + stamp, "hash.lock"), latestHash);
 
-            if (Directory.Exists(dst))
-            {
-                Directory.Move(dst, dst + $"-{stamp}-bak");
-            }
-
-            Directory.Move(dst + '-' + stamp, dst);
+            MoveDirectoryHelper.MoveDirectory(dst + '-' + stamp, dst);
 
             try
             {
@@ -68,9 +63,14 @@ namespace Andoromeda.Framework.GitHub
                 using (var stream = await response.Content.ReadAsStreamAsync())
                 {
                     ExtractAll(stream, dst);
-                    Directory.Move(Path.Combine(dst, $"{repo}-{branch}"), dst + "-bucket");
-                    Directory.Delete(dst);
-                    Directory.Move(dst + "-bucket", dst);
+                    MoveDirectoryHelper.MoveDirectory(Path.Combine(dst, $"{repo}-{branch}"), dst + "-bucket");
+                    try
+                    {
+                        Directory.Delete(dst);
+                    }
+                    catch (IOException)
+                    { }
+                    MoveDirectoryHelper.MoveDirectory(dst + "-bucket", dst);
                 }
             }
         }
