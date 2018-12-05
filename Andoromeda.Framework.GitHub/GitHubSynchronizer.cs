@@ -61,6 +61,9 @@ namespace Andoromeda.Framework.GitHub
                 using (var stream = await response.Content.ReadAsStreamAsync())
                 {
                     ExtractAll(stream, dst);
+                    Directory.Move(Path.Combine(dst, $"{repo}-{branch}"), dst + "-bucket");
+                    Directory.Delete(dst);
+                    Directory.Move(dst + "-bucket", dst);
                 }
             }
         }
