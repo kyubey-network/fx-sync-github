@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Company>Andoromeda</Company>
+    <Authors>Andoromeda</Authors>
   </PropertyGroup>
 
 </Project>
