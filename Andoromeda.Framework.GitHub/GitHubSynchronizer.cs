@@ -9,7 +9,7 @@ namespace Andoromeda.Framework.GitHub
 {
     public static class GitHubSynchronizer
     {
-        private static HttpClient client = new HttpClient() { BaseAddress = new Uri("https://github.com") };
+        private static HttpClient client = new HttpClient() { BaseAddress = new Uri("https://github.com"), Timeout = TimeSpan.FromMinutes(10) };
         private static Regex commitRegex = new Regex(@"(?<=class=""message js-navigation-open"" data-pjax=""true"" href=""/[a-zA-Z0-9-_+ ]{1,}\/[a-zA-Z0-9-_+ ]{1,}\/commit\/)[a-f0-9]{40,40}");
 
         public static async Task<string> GetRepositoryLatestHashAsync(string user, string repo, string branch)
@@ -77,7 +77,7 @@ namespace Andoromeda.Framework.GitHub
 
         private static void ExtractAll(Stream stream, string dest)
         {
-            if (!dest.EndsWith("/")) 
+            if (!dest.EndsWith("/"))
             {
                 dest += '/';
             }

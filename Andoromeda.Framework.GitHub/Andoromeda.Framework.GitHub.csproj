@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Company>Andoromeda</Company>
     <Authors>Andoromeda</Authors>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
 </Project>
